@@ -5,17 +5,25 @@ SOURCE=$1
 FLAGNAME=$2
 FLAGTYPE=$3
 
-XcodeSDK="/Applications/Xcode.11.1.0.11A1027.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk" 
+XcodeSDK="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk" 
+SYSTEM_FRAMEWORKS="System/Library/Frameworks"
+
 PIRANHA_LIB="./piranha-objc/bin/XPFlagRefactoring.dylib"
 
 ./piranha-objc/bin/clang -x objective-c \
-    -c $SOURCE \
-    -fobjc-arc \
+    $SOURCE \
     -isysroot $XcodeSDK \
-    -fsyntax-only \
+    -arch armv7s \
+    -ObjC \
+    -iframeworkwithsysroot $SYSTEM_FRAMEWORKS \
+    -F $SYSTEM_FRAMEWORKS \
+    -framework "Foundation" \
+    -framework "UIKit" \
     -Xclang -load \
     -Xclang $PIRANHA_LIB \
     -Xclang -plugin \
-    -Xclang XPFlagRefactorPlugin \
-    -Xclang -plugin-arg-XPFlagRefactorPlugin \
-    -Xclang $FLAGNAME,$FLAGTYPE
+    -Xclang find-named-square\
+    -Xclang \
+    -fsyntax-only \
+    -fmodules \
+    -DDEBUG=1

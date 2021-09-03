@@ -2,7 +2,7 @@
 
 set -exu
 
-BRANCH_SCHEME=${BRANCH_SCHEME:-"swift-5.1-branch"}
+BRANCH_SCHEME=${BRANCH_SCHEME:-"swift-5.2-branch"}
 PIRANHA_VERSION="${PIRANHA_VERSION:-"0.0.5"}"
 PIRANHA_SRC=$(pwd)/src
 PIRANHA_DIR=$(pwd)/piranha-objc
